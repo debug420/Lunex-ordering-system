@@ -3,3 +3,20 @@
 #mainTable td:first-child {
     text-align: left;
 }
+
+/* Styling for the Heading */
+h1 {
+    font-family: 'Roboto', sans-serif; /* Modern font */
+    font-size: 36px; /* Adjust size for prominence */
+    font-weight: 500; /* Slightly bold for clarity */
+    text-align: center; /* Center the text */
+    color: #7744a3; /* Blue color that contrasts nicely with the background */
+    margin-top: 40px; /* Add space above the heading */
+    margin-bottom: 20px; /* Add space below the heading */
+    letter-spacing: 1px; /* Slightly increased letter-spacing for elegance */
+    text-transform: uppercase; /* Uppercase for a modern feel */
+    background-color: #ffffff; /* Clean white background for contrast */
+    padding: 10px 20px; /* Padding around the heading for a minimalistic, boxed look */
+    border-radius: 8px; /* Rounded corners for a soft appearance */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for a floating effect */
+}
