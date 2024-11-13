@@ -1,0 +1,5 @@
+/* Align SKU column content to the left */
+#mainTable th:first-child, 
+#mainTable td:first-child {
+    text-align: left;
+}
