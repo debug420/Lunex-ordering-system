@@ -4,19 +4,61 @@
     text-align: left;
 }
 
-/* Styling for the Heading */
+body {
+    padding: 15px;
+}
+
 h1 {
-    font-family: 'Roboto', sans-serif; /* Modern font */
-    font-size: 36px; /* Adjust size for prominence */
-    font-weight: 500; /* Slightly bold for clarity */
-    text-align: center; /* Center the text */
-    color: #7744a3; /* Blue color that contrasts nicely with the background */
-    margin-top: 40px; /* Add space above the heading */
-    margin-bottom: 20px; /* Add space below the heading */
-    letter-spacing: 1px; /* Slightly increased letter-spacing for elegance */
-    text-transform: uppercase; /* Uppercase for a modern feel */
-    background-color: #ffffff; /* Clean white background for contrast */
-    padding: 10px 20px; /* Padding around the heading for a minimalistic, boxed look */
-    border-radius: 8px; /* Rounded corners for a soft appearance */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for a floating effect */
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+    color: #7744a3;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#viewCartButton {
+    background-color: #934caf;
+    color: white;
+    padding: 8px 40%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    display: block;
+    margin: auto;
+    transition: background-color 0.3s ease;
+}
+
+#viewCartButton:hover {
+    background-color: #a14cc3;
+}
+
+#addCartButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+#addCartButton:hover {
+    background-color: #45a049;
+}
+
+#info {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    width: fit-content;
 }

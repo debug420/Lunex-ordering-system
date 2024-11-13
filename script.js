@@ -1,3 +1,6 @@
+let cart = [];
+let clickedSKUs = [];
+
 // Initialize product json file
 let products = [];
 fetch("products.json")
@@ -24,10 +27,36 @@ fetch("products.json")
                 }
                 tableRow.appendChild(tableElement);
             }
+
+            const tableButton = document.createElement("button");
+            tableButton.id = "addCartButton";
+            tableButton.textContent = "Add to Cart";
+            tableButton.onclick = function() {
+                if (!clickedSKUs.includes(indexedProduct["SKU"]))
+                {
+                    cart.push([indexedProduct["SKU"], indexedProduct["Product Name"]]);
+                    clickedSKUs.push(indexedProduct["SKU"]);
+                    tableButton.style.backgroundColor = "#525252";
+                    console.log("Cart Updated: " + cart);
+                } else {
+                    console.log(indexedProduct["Product Name"] + " is already in cart");
+                }
+            }
+            tableRow.appendChild(tableButton);
+
         }
 
         // Reinitialize DataTables after adding rows
-        new DataTable("#mainTable");
+        new DataTable("#mainTable", {
+            columnDefs: [{
+              "defaultContent": "",
+              "targets": "_all"
+            }],
+            "oLanguage": {
+               "sInfo" : "Displaying _START_ to _END_ of _TOTAL_",
+               "sLengthMenu" : "_MENU_"
+            }
+        });
 
     })
     .catch(error => console.error("Error loading table:", error))
