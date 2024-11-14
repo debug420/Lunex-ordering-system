@@ -25,7 +25,6 @@ h1 {
 }
 
 #viewCartButton, #resetCartButton {
-    background-color: #934caf;
     color: white;
     padding: 8px 40%;
     border: none;
@@ -38,7 +37,12 @@ h1 {
 }
 
 #viewCartButton {
+    background-color: #4CAF50;
     margin-bottom: 5px;
+}
+
+#resetCartButton {
+    background-color: #851e34;
 }
 
 #viewCartButton:hover, #resetCartButton:hover {
