@@ -15,10 +15,14 @@ function makeCartButtonAdd(buttonObject) {
     buttonObject.style.backgroundColor = "#4CAF50";
 }
 
+function isSKU(string) {
+    return /^[0-9]{4}$/.test(string);
+}
+
 function getCartFromSessionStorage() {
     let cart = new Map();
     for (i = 0; i < sessionStorage.length; i++) {
-        if (/^[0-9]+$/.test(sessionStorage.key(i))) {
+        if (isSKU(sessionStorage.key(i))) {
             cart.set(sessionStorage.key(i), sessionStorage.getItem(sessionStorage.key(i)));
         }
     }
@@ -34,20 +38,33 @@ function updateViewCartButton() {
 }
 
 let cartButtons = new Map();
+function updateCartButtons() {
+    cartButtons.forEach((buttonObject, SKU) => {
+        if (sessionStorage.getItem(SKU)) {
+            makeCartButtonRemove(buttonObject);
+        } else {
+            makeCartButtonAdd(buttonObject);
+        }
+    });
+}
 
 const resetCartButton = document.getElementById("resetCartButton");
 resetCartButton.onclick = function() {
 
-    for (i = 0; i < sessionStorage.length; i++) {
-        if (/^[0-9]+$/.test(sessionStorage.key(i)))
-            sessionStorage.removeItem(sessionStorage.key(i));
+    const lengthOfSessionStorage = sessionStorage.length
+    let skuToRemoveFromSessionStorage = [];
+    for (i = 0; i < lengthOfSessionStorage; i++) {
+        if (isSKU(sessionStorage.key(i))) {
+            skuToRemoveFromSessionStorage.push(sessionStorage.key(i));
+        }
     }
 
-    // Reset cart action buttons
-    cartButtons.forEach((buttonObject, SKU) => {
-        makeCartButtonAdd(buttonObject);
+    skuToRemoveFromSessionStorage.forEach(sku => {
+        sessionStorage.removeItem(sku);
     });
-
+    
+    // Reset cart action buttons
+    updateCartButtons();
     updateViewCartButton();
 
 }
@@ -104,15 +121,7 @@ fetch("products.json")
 
         }
 
-        // Match cart button actions to sessionStorage
-        for (i = 0; i < sessionStorage.length; i++) {
-            // if statement ensures that other elements (such as sessionStorage items by extensions) are not iterated through
-            if (/^[0-9]+$/.test(sessionStorage.key(i))) {
-                let buttonObj = cartButtons.get(sessionStorage.key(i));
-                makeCartButtonRemove(buttonObj);
-            }
-        }
-
+        updateCartButtons();
         updateViewCartButton();
 
         // Reinitialize DataTables after adding rows
