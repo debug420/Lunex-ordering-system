@@ -102,7 +102,7 @@ fetch("products.json")
                 if (tableButton.textContent.includes("Add"))
                 {
                     // Add to cart
-                    sessionStorage.setItem(indexedProduct["SKU"], JSON.stringify([indexedProduct["Product Name"], indexedProduct["variationID"], 0]));
+                    sessionStorage.setItem(indexedProduct["SKU"], JSON.stringify([indexedProduct["Product Name"], indexedProduct["variationID"], 1, indexedProduct["Selling Price"]]));
                     makeCartButtonRemove(tableButton);
                 } else {
                     // Remove from cart
@@ -124,7 +124,7 @@ fetch("products.json")
         updateCartButtons();
         updateViewCartButton();
 
-        // Reinitialize DataTables after adding rows
+        // Initialize DataTables after adding rows
         new DataTable("#mainTable", {
             columnDefs: [{
               "defaultContent": "",

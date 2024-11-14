@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
-
+        <link rel="stylesheet" href="cartstyles.css">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Lunexco Ordering System - Cart</title>
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.material.css">
+        
+        <title>Lunexco Cart</title>
+
     </head>
     <body>
 
         <button id="backButton">Back</button>
-        
+
+        <table id="cartTable" class="mdl-data-table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Add</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="cartTableBody">
+                <!-- Rows populated by script -->
+            </tbody>
+        </table>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.min.js"></script>
+        <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+        <script src="https://cdn.datatables.net/2.1.8/js/dataTables.material.js"></script>
+        <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+        <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.dataTables.js"></script>
         <script src="cart.js"></script>
 
     </body>

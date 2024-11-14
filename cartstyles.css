@@ -1,0 +1,11 @@
+.dt-empty {
+    font-family: sans-serif;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+.dt-search {
+    font-family: sans-serif;
+    padding-top: 20px;
+}
