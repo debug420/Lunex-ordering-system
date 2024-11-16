@@ -143,6 +143,30 @@ new DataTable("#cartTable", {
 const exportButton = document.getElementById("exportButton");
 exportButton.onclick = function() {
 
+    // Final export format goal:
+    // pos_product_row(variationID, null, null, quantity)
 
+    let finalCart = getCartFromSessionStorage();
+    let exportedString = "";
+
+    finalCart.forEach((productData, productSKU) => {
+
+        const productName = productData[0];
+        const productVariationID = productData[1];
+        const productQuantity = productData[2];
+        const productSellingPrice = productData[3];
+
+        exportedString += "pos_product_row(" + productVariationID + ", null, null, " + productQuantity + ");\n"
+
+    })
+
+    // download file for user
+    const blob = new Blob([exportedString], { type: "text/plain" });
+    const downloadLink = document.createElement("a");
+    downloadLink.download = "export.lunex";
+    downloadLink.href = window.URL.createObjectURL(blob);
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
     
 }
