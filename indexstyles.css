@@ -1,28 +1,16 @@
-/* Align column content accordingly */
-#mainTable th:nth-child(2), 
-#mainTable td:nth-child(2) {
-    text-align: left;
-}
-
-#mainTable th:first-child, 
-#mainTable td:first-child,
-#mainTable td:nth-child(n+3),
-#mainTable th:nth-child(n+3) {
-    text-align: center;
-}
-
+/* General Body Styling */
 body {
     padding: 15px;
 }
 
+/* Heading Styling */
 h1 {
     font-family: 'Roboto', sans-serif;
     font-size: 36px;
     font-weight: 500;
     text-align: center;
     color: #7744a3;
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin: 40px 0 20px;
     letter-spacing: 1px;
     text-transform: uppercase;
     background-color: #ffffff;
@@ -31,50 +19,64 @@ h1 {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-#viewCartButton, #resetCartButton {
-    color: white;
-    padding: 8px 40%;
+/* Table Column Alignment */
+#mainTable th:nth-child(2),
+#mainTable td:nth-child(2) {
+    text-align: left;
+}
+
+#mainTable th:first-child,
+#mainTable td:first-child,
+#mainTable th:nth-child(n+3),
+#mainTable td:nth-child(n+3) {
+    text-align: center;
+}
+
+/* Button Styling */
+button {
+    color: #fff;
+    padding: 8px 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
     display: block;
-    margin: auto;
-    transition: background-color 0.3s ease;
+    margin: 5px auto;
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 #viewCartButton {
     background-color: #4CAF50;
-    margin-bottom: 5px;
+    width: 80%;
+}
+
+#viewCartButton:hover {
+    background-color: #3d8840;
 }
 
 #resetCartButton {
     background-color: #851e34;
+    width: 80%;
+}
+
+#resetCartButton:hover {
+    background-color: #611c2b;
 }
 
 #resetCartButton:active {
     transform: scale(0.995);
 }
 
-#viewCartButton:hover, #resetCartButton:hover {
-    background-color: #a14cc3;
-}
-
 #addCartButton {
     background-color: #4CAF50;
-    color: white;
     padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
 }
 
 #addCartButton:hover {
     background-color: #45a049;
 }
 
+/* Info Styling */
 #info {
     display: block;
     text-align: center;
@@ -82,11 +84,43 @@ h1 {
     width: fit-content;
 }
 
+/* Table Info Styling */
 #mainTable_info {
     font-family: sans-serif;
     font-size: 14px;
 }
 
+/* Search Field Styling */
 .dt-search {
     font-family: sans-serif;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+        padding: 8px 16px;
+    }
+
+    button {
+        padding: 8px 10%;
+        width: 90%;
+    }
+
+    #info {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+        padding: 6px 12px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px 8%;
+        width: 100%;
+    }
 }

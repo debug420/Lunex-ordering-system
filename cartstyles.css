@@ -1,73 +1,116 @@
+/* General Body Styling */
 body {
     padding: 15px;
 }
 
-.dt-empty {
-    font-family: sans-serif;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 20px;
-}
-
+/* Empty and Search Styling */
+.dt-empty,
 .dt-search {
     font-family: sans-serif;
     padding-top: 20px;
 }
 
+.dt-empty {
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+/* Total Text Styling */
 #totalText {
     font-family: sans-serif;
-    padding-left: 5px;
-    border-radius: 5px;
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 0, 0, 0.1);
+    padding: 20px 20px;
     font-size: 30px;
-    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+/* Button Styling */
+button {
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
 #backButton {
     background-color: #7744a3;
-    color: white;
-    padding: 10px 20px;
     margin-left: 5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border: 0;
-    border-radius: 4px;
 }
 
-#decreaseButton, #increaseButton {
-    border: 0;
-    border-radius: 4px;
+#backButton:hover {
+    cursor: pointer;
+}
+
+#decreaseButton,
+#increaseButton {
     padding: 10px 20px;
-    color: white;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
 }
 
-#decreaseButton { background-color: #851e34; }
-#increaseButton { background-color: #4CAF50; }
+#decreaseButton {
+    background-color: #851e34;
+}
 
-#cartTable th:nth-child(n+2),
-#cartTable td:nth-child(n+2) {
-    text-align:center;
+#increaseButton {
+    background-color: #4CAF50;
 }
 
 #decreaseButton:hover {
-    background-color: #6f1a2c; /* Slightly darker red */
+    background-color: #6f1a2c;
     cursor: pointer;
-    transform: scale(1.05); /* Slightly enlarge the button */
-    transition: background-color 0.3s ease; /* Smooth transition for hover color */
+    transform: scale(1.05);
 }
 
 #increaseButton:hover {
-    background-color: #45a049; /* Slightly darker green */
+    background-color: #3d8840;
     cursor: pointer;
-    transform: scale(1.05); /* Slightly enlarge the button */
-    transition: background-color 0.3s ease; /* Smooth transition for hover color */
+    transform: scale(1.05);
 }
 
-#decreaseButton:active, #increaseButton:active {
+#decreaseButton:active,
+#increaseButton:active {
     transform: scale(0.95);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+#exportButton {
+    background-color: #45a049;
+    padding: 15px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    margin: 20px auto;
+    display: block;
+    width: 100%;
+    max-width: 600px;
+}
+
+#exportButton:hover {
+    background-color: #3d8840;
+    cursor: pointer;
+    transform: scale(1.005);
+    transition: background-color 0.3s ease;
+}
+
+/* Table Column Alignment */
+#cartTable {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#cartTable th:nth-child(n+2),
+#cartTable td:nth-child(n+2) {
+    text-align: center;
+}

@@ -31,7 +31,7 @@ function changeQuantity(SKU, byAmount) {
 const totalText = document.getElementById("totalText");
 let totalCost = 0;
 function updateTotal() {
-    totalText.textContent = "$" + parseFloat(totalCost).toFixed(2);
+    totalText.textContent = "Total: $" + parseFloat(totalCost).toFixed(2);
 }
 
 // function updateTotal() {
@@ -137,3 +137,12 @@ new DataTable("#cartTable", {
         "sEmptyTable": "Cart is empty"
     }
 });
+
+// export functionality
+
+const exportButton = document.getElementById("exportButton");
+exportButton.onclick = function() {
+
+
+    
+}
