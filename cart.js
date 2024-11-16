@@ -160,13 +160,17 @@ exportButton.onclick = function() {
 
     })
 
-    // download file for user
-    const blob = new Blob([exportedString], { type: "text/plain" });
-    const downloadLink = document.createElement("a");
-    downloadLink.download = "export.lunex";
-    downloadLink.href = window.URL.createObjectURL(blob);
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-    
+    if (exportedString === "") {
+        console.log("No items in cart to export...");
+    } else {
+        // download file for user
+        const blob = new Blob([exportedString], { type: "text/plain" });
+        const downloadLink = document.createElement("a");
+        downloadLink.download = "export.lunex";
+        downloadLink.href = window.URL.createObjectURL(blob);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
+
 }
