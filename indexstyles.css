@@ -52,6 +52,10 @@ h1 {
     background-color: #851e34;
 }
 
+#resetCartButton:active {
+    transform: scale(0.995);
+}
+
 #viewCartButton:hover, #resetCartButton:hover {
     background-color: #a14cc3;
 }

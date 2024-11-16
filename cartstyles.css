@@ -50,3 +50,24 @@ body {
 #cartTable td:nth-child(n+2) {
     text-align:center;
 }
+
+#decreaseButton:hover {
+    background-color: #6f1a2c; /* Slightly darker red */
+    cursor: pointer;
+    transform: scale(1.05); /* Slightly enlarge the button */
+    transition: background-color 0.3s ease; /* Smooth transition for hover color */
+}
+
+#increaseButton:hover {
+    background-color: #45a049; /* Slightly darker green */
+    cursor: pointer;
+    transform: scale(1.05); /* Slightly enlarge the button */
+    transition: background-color 0.3s ease; /* Smooth transition for hover color */
+}
+
+#decreaseButton:active, #increaseButton:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
