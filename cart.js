@@ -28,6 +28,34 @@ function changeQuantity(SKU, byAmount) {
     return productData[2];
 }
 
+const totalText = document.getElementById("totalText");
+let totalCost = 0;
+function updateTotal() {
+    totalText.textContent = "$" + parseFloat(totalCost).toFixed(2);
+}
+
+// function updateTotal() {
+
+//     let tableData = $("#cartTable").DataTable().column(1).data();
+//     let filterArray = [];
+
+//     for (i = 0; i < tableData.length; i++) {
+//         filterArray.push(tableData[i]);
+//     }
+    
+//     const cleanedData = filterArray.map(data => {
+//         return data.replace(/\$/g, '').replace(/\s*\([^)]*\)$/, '');
+//     })
+
+//     let sum = 0;
+//     cleanedData.forEach(data => {
+//         sum += Number(data);
+//     })
+
+//     totalText.textContent = "$" + parseFloat(sum).toFixed(2);
+
+// }
+
 const cartTable = document.getElementById("cartTableBody");
 
 getCartFromSessionStorage().forEach((productData, SKU) => {
@@ -48,25 +76,34 @@ getCartFromSessionStorage().forEach((productData, SKU) => {
     const productPricingTable = document.createElement("td");
     productPricingTable.textContent = "$" + parseFloat(Number(productQuantity) * productPrice).toFixed(2) + " (" + productQuantity + " * $" + productPrice + ")";
     tableRow.appendChild(productPricingTable);
+    totalCost += Number(productQuantity) * productPrice;
 
     // Add and remove actions
     const increaseQButtonWrapper = document.createElement("td");
     const increaseQButton = document.createElement("button");
+    increaseQButton.id = "increaseButton";
     increaseQButton.textContent = "+";
     tableRow.appendChild(increaseQButtonWrapper);
     increaseQButtonWrapper.appendChild(increaseQButton);
     increaseQButton.onclick = function() {
+
         const newQuantity = changeQuantity(SKU, 1);
         productPricingTable.textContent = "$" + parseFloat(newQuantity * productPrice).toFixed(2) + " (" + newQuantity + " * $" + productPrice + ")";
+        totalCost += Number(productPrice);
+        updateTotal();
+
     }
 
     const decreaseQButtonWrapper = document.createElement("td");
     const decreaseQButton = document.createElement("button");
+    decreaseQButton.id = "decreaseButton";
     decreaseQButton.textContent = "-";
     tableRow.appendChild(decreaseQButtonWrapper);
     decreaseQButtonWrapper.appendChild(decreaseQButton);
     decreaseQButton.onclick = function() {
+
         const newQuantity = changeQuantity(SKU, -1);
+        totalCost -= Number(productPrice);
         if (newQuantity > 0) {
             // Update pricing
             productPricingTable.textContent = "$" + parseFloat(newQuantity * productPrice).toFixed(2) + " (" + newQuantity + " * $" + productPrice + ")";
@@ -74,9 +111,14 @@ getCartFromSessionStorage().forEach((productData, SKU) => {
             // Delete from cart
             tableRow.remove();
         };
+
+        updateTotal();
+
     }
 
 })
+
+updateTotal();
 
 // Init datatables.js
 new DataTable("#cartTable", {

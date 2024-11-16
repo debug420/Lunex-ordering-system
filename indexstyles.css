@@ -1,7 +1,14 @@
-/* Align SKU column content to the left */
-#mainTable th:first-child, 
-#mainTable td:first-child {
+/* Align column content accordingly */
+#mainTable th:nth-child(2), 
+#mainTable td:nth-child(2) {
     text-align: left;
+}
+
+#mainTable th:first-child, 
+#mainTable td:first-child,
+#mainTable td:nth-child(n+3),
+#mainTable th:nth-child(n+3) {
+    text-align: center;
 }
 
 body {

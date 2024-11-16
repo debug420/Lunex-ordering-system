@@ -1,4 +1,4 @@
-
+let tableInstance;
 const viewCartButton = document.getElementById("viewCartButton");
 viewCartButton.onclick = function() {
     window.location.href = "cart.html";
@@ -99,6 +99,7 @@ fetch("products.json")
             tableButton.id = "addCartButton";   // styling purposes
             tableButton.textContent = "Add";
             tableButton.onclick = function() {
+                
                 if (tableButton.textContent.includes("Add"))
                 {
                     // Add to cart
@@ -125,7 +126,7 @@ fetch("products.json")
         updateViewCartButton();
 
         // Initialize DataTables after adding rows
-        new DataTable("#mainTable", {
+        tableInstance = new DataTable("#mainTable", {
             columnDefs: [{
               "defaultContent": "",
               "targets": "_all"
@@ -138,4 +139,3 @@ fetch("products.json")
 
     })
     .catch(error => console.error("Error loading table:", error))
-
