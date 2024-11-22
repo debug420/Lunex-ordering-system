@@ -124,15 +124,15 @@ exportButton.onclick = function() {
     // Final export format goal:
     // pos_product_row(variationID, null, null, quantity)
 
-    let finalCart = getCartFromSessionStorage();
     let exportedString = "";
 
-    finalCart.forEach((productData, productSKU) => {
+    getCartFromSessionStorage().forEach((data, productSKU) => {
 
-        const productName = productData[0];
-        const productVariationID = productData[1];
-        const productQuantity = productData[2];
-        const productSellingPrice = productData[3];
+        let productData = new Map(JSON.parse(data));
+
+        const productVariationID = productData.get("ID");
+        const productQuantity = productData.get("Quantity");
+        const productSellingPrice = productData.get("Selling Price");
 
         exportedString += "pos_product_row(" + productVariationID + ", null, null, " + productQuantity + ");\n"
 
