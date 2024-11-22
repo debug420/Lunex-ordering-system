@@ -1,4 +1,4 @@
-import {getCartFromSessionStorage} from "./module.js";
+import {getCartFromSessionStorage, setSessionStorageMap, getSessionStorageMap} from "./module.js";
 
 const backButton = document.getElementById("backButton");
 backButton.onclick = function() {
@@ -6,10 +6,10 @@ backButton.onclick = function() {
 }
 
 function changeQuantity(SKU, byAmount) {
-    let productData = new Map(JSON.parse(sessionStorage.getItem(SKU)));
+    let productData = getSessionStorageMap(SKU);
     productData.set("Quantity", Number(productData.get("Quantity")) + byAmount);
     if (Number(productData.get("Quantity")) > 0) {
-        sessionStorage.setItem(SKU, JSON.stringify(Array.from(productData.entries())));
+        setSessionStorageMap(SKU, productData);
     } else {
         sessionStorage.removeItem(SKU);
     }
@@ -24,8 +24,8 @@ function updateTotal() {
 
 const cartTable = document.getElementById("cartTableBody");
 
-getCartFromSessionStorage().forEach((data, SKU) => {
-    let productData = new Map(JSON.parse(data));
+getCartFromSessionStorage().forEach((productData, productSKU) => {
+
     const productName = productData.get("Product Name");
     const productQuantity = productData.get("Quantity");
     const productPrice = productData.get("Selling Price");
@@ -35,7 +35,7 @@ getCartFromSessionStorage().forEach((data, SKU) => {
 
     // Product Name
     const productNameTable = document.createElement("td");
-    productNameTable.textContent = "[" + SKU + "] " + productName + " (" + productData.get("Carton Size") + ")";
+    productNameTable.textContent = "[" + productSKU + "] " + productName + " (" + productData.get("Carton Size") + ")";
     tableRow.appendChild(productNameTable);
 
     // Pricing
@@ -53,7 +53,7 @@ getCartFromSessionStorage().forEach((data, SKU) => {
     increaseQButtonWrapper.appendChild(increaseQButton);
     increaseQButton.onclick = function() {
 
-        const newQuantity = changeQuantity(SKU, 1);
+        const newQuantity = changeQuantity(productSKU, 1);
         productPricingTable.textContent = "$" + parseFloat(newQuantity * productPrice).toFixed(2) + " (" + newQuantity + " * $" + productPrice + ")";
         totalCost += Number(productPrice);
         updateTotal();
@@ -68,7 +68,7 @@ getCartFromSessionStorage().forEach((data, SKU) => {
     decreaseQButtonWrapper.appendChild(decreaseQButton);
     decreaseQButton.onclick = function() {
 
-        const newQuantity = changeQuantity(SKU, -1);
+        const newQuantity = changeQuantity(productSKU, -1);
         totalCost -= Number(productPrice);
         if (newQuantity > 0) {
             // Update pricing
@@ -114,9 +114,7 @@ exportButton.onclick = function() {
 
     let exportedString = "";
 
-    getCartFromSessionStorage().forEach((data, productSKU) => {
-
-        let productData = new Map(JSON.parse(data));
+    getCartFromSessionStorage().forEach((productData, productSKU) => {
 
         const productVariationID = productData.get("ID");
         const productQuantity = productData.get("Quantity");

@@ -1,12 +1,10 @@
-import {getCartFromSessionStorage} from "./module.js";
+import {getCartFromSessionStorage, setSessionStorageMap, getSessionStorageMap} from "./module.js";
 
-let tableInstance;
 const viewCartButton = document.getElementById("viewCartButton");
 viewCartButton.onclick = function() {
     window.location.href = "cart.html";
 }
 
-// Visual functions for button coloring
 function makeCartButtonRemove(buttonObject) {
     buttonObject.textContent = "Remove";
     buttonObject.style.backgroundColor = "#525252";
@@ -39,8 +37,8 @@ function updateCartButtons() {
 const resetCartButton = document.getElementById("resetCartButton");
 resetCartButton.onclick = function() {
 
-    getCartFromSessionStorage().forEach((productMap, SKU) => {
-        sessionStorage.removeItem(SKU);
+    getCartFromSessionStorage().forEach((productData, productSKU) => {
+        sessionStorage.removeItem(productSKU);
     })
     
     // Reset cart action buttons
@@ -50,12 +48,11 @@ resetCartButton.onclick = function() {
 }
 
 // Initialize product json file
-let products = [];
+
 fetch("products.json")
     .then(response => response.json())
-    .then(data => {
+    .then(products => {
         
-        products = data;
         console.log("Data loaded...");
 
         // Populate list in HTML
@@ -65,12 +62,11 @@ fetch("products.json")
             const tableRow = document.createElement("tr");
             mainTable.appendChild(tableRow);
             
-            const indexableElements = ["SKU", "Product Name", "Selling Price", "Brand", "Carton Size", "ID"];
             let indexedProductData = new Map(Object.entries(products[index]));
             indexedProductData.set("Quantity", 1);
 
-            indexableElements.forEach((indexedElement) => {
-                if (indexedElement != "ID") {
+            indexedProductData.forEach((indexedValue, indexedElement) => {
+                if (indexedElement != "ID" & indexedElement != "Quantity") {
                     const tableElement = document.createElement("td");
                     tableElement.textContent = indexedProductData.get(indexedElement) || "-";
                     tableRow.appendChild(tableElement);
@@ -86,7 +82,7 @@ fetch("products.json")
                 
                 if (tableButton.textContent.includes("Add"))
                 {
-                    sessionStorage.setItem(indexedProductData.get("SKU"), JSON.stringify(Array.from(indexedProductData.entries())));
+                    setSessionStorageMap(indexedProductData.get("SKU"), indexedProductData);
                     makeCartButtonRemove(tableButton);
 
                 } else {
@@ -105,14 +101,13 @@ fetch("products.json")
             tableRow.appendChild(tableElementForButton);
             tableElementForButton.appendChild(tableButton);
             cartButtons.set(indexedProductData.get("SKU"), tableButton);
-
         }
 
         updateCartButtons();
         updateViewCartButton();
 
         // Initialize DataTables after adding rows
-        tableInstance = new DataTable("#mainTable", {
+        new DataTable("#mainTable", {
             columnDefs: [{
               "defaultContent": "",
               "targets": "_all"
