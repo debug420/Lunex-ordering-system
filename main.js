@@ -51,17 +51,9 @@ function updateCartButtons() {
 const resetCartButton = document.getElementById("resetCartButton");
 resetCartButton.onclick = function() {
 
-    const lengthOfSessionStorage = sessionStorage.length
-    let skuToRemoveFromSessionStorage = [];
-    for (i = 0; i < lengthOfSessionStorage; i++) {
-        if (isSKU(sessionStorage.key(i))) {
-            skuToRemoveFromSessionStorage.push(sessionStorage.key(i));
-        }
-    }
-
-    skuToRemoveFromSessionStorage.forEach(sku => {
-        sessionStorage.removeItem(sku);
-    });
+    getCartFromSessionStorage().forEach((productMap, SKU) => {
+        sessionStorage.removeItem(SKU);
+    })
     
     // Reset cart action buttons
     updateCartButtons();
@@ -83,15 +75,19 @@ fetch("products.json")
         for (index in products) {
 
             const tableRow = document.createElement("tr");
-            const indexedProduct = products[index];
             mainTable.appendChild(tableRow);
+            
+            const indexableElements = ["SKU", "Product Name", "Selling Price", "Brand", "Carton Size", "ID"];
+            let indexedProductData = new Map(Object.entries(products[index]));
+            indexedProductData.set("Quantity", 1);
 
-            const indexableElements = ["SKU", "Product Name", "Selling Price", "Brand"];
-            for (let i = 0; i < 4; i++) {
-                const tableElement = document.createElement("td");
-                tableElement.textContent = indexedProduct[indexableElements[i]] || "-";
-                tableRow.appendChild(tableElement);
-            }
+            indexableElements.forEach((indexedElement) => {
+                if (indexedElement != "ID") {
+                    const tableElement = document.createElement("td");
+                    tableElement.textContent = indexedProductData.get(indexedElement) || "-";
+                    tableRow.appendChild(tableElement);
+                }
+            })
 
             const tableElementForButton = document.createElement("td"); // wrapped in td for alignment purposes
             const tableButton = document.createElement("button");
@@ -102,13 +98,15 @@ fetch("products.json")
                 
                 if (tableButton.textContent.includes("Add"))
                 {
-                    // Add to cart
-                    sessionStorage.setItem(indexedProduct["SKU"], JSON.stringify([indexedProduct["Product Name"], indexedProduct["variationID"], 1, indexedProduct["Selling Price"]]));
+                    sessionStorage.setItem(indexedProductData.get("SKU"), JSON.stringify(Array.from(indexedProductData.entries())));
                     makeCartButtonRemove(tableButton);
+
                 } else {
+
                     // Remove from cart
-                    sessionStorage.removeItem(indexedProduct["SKU"]);
+                    sessionStorage.removeItem(indexedProductData.get("SKU"));
                     makeCartButtonAdd(tableButton);
+
                 }
 
                 // update cart tally on button
@@ -118,7 +116,7 @@ fetch("products.json")
 
             tableRow.appendChild(tableElementForButton);
             tableElementForButton.appendChild(tableButton);
-            cartButtons.set(indexedProduct["SKU"], tableButton);
+            cartButtons.set(indexedProductData.get("SKU"), tableButton);
 
         }
 

@@ -11,21 +11,21 @@ function getCartFromSessionStorage() {
     let cart = new Map();
     for (i = 0; i < sessionStorage.length; i++) {
         if (isSKU(sessionStorage.key(i))) {
-            cart.set(sessionStorage.key(i), JSON.parse(sessionStorage.getItem(sessionStorage.key(i))));
+            cart.set(sessionStorage.key(i), sessionStorage.getItem(sessionStorage.key(i)));
         }
     }
     return cart;
 }
 
 function changeQuantity(SKU, byAmount) {
-    let productData = JSON.parse(sessionStorage.getItem(SKU));
-    productData[2] = Number(productData[2]) + byAmount;
-    if (Number(productData[2]) > 0) {
-        sessionStorage.setItem(SKU, JSON.stringify(productData));
+    let productData = new Map(JSON.parse(sessionStorage.getItem(SKU)));
+    productData.set("Quantity", Number(productData.get("Quantity")) + byAmount);
+    if (Number(productData.get("Quantity")) > 0) {
+        sessionStorage.setItem(SKU, JSON.stringify(Array.from(productData.entries())));
     } else {
         sessionStorage.removeItem(SKU);
     }
-    return productData[2];
+    return productData.get("Quantity");
 }
 
 const totalText = document.getElementById("totalText");
@@ -34,42 +34,20 @@ function updateTotal() {
     totalText.textContent = "Total: $" + parseFloat(totalCost).toFixed(2);
 }
 
-// function updateTotal() {
-
-//     let tableData = $("#cartTable").DataTable().column(1).data();
-//     let filterArray = [];
-
-//     for (i = 0; i < tableData.length; i++) {
-//         filterArray.push(tableData[i]);
-//     }
-    
-//     const cleanedData = filterArray.map(data => {
-//         return data.replace(/\$/g, '').replace(/\s*\([^)]*\)$/, '');
-//     })
-
-//     let sum = 0;
-//     cleanedData.forEach(data => {
-//         sum += Number(data);
-//     })
-
-//     totalText.textContent = "$" + parseFloat(sum).toFixed(2);
-
-// }
-
 const cartTable = document.getElementById("cartTableBody");
 
-getCartFromSessionStorage().forEach((productData, SKU) => {
-
-    const productName = productData[0];
-    const productQuantity = productData[2];
-    const productPrice = productData[3];
+getCartFromSessionStorage().forEach((data, SKU) => {
+    let productData = new Map(JSON.parse(data));
+    const productName = productData.get("Product Name");
+    const productQuantity = productData.get("Quantity");
+    const productPrice = productData.get("Selling Price");
 
     const tableRow = document.createElement("tr");
     cartTable.appendChild(tableRow);
 
     // Product Name
     const productNameTable = document.createElement("td");
-    productNameTable.textContent = "[" + SKU + "] " + productName;
+    productNameTable.textContent = "[" + SKU + "] " + productName + " (" + productData.get("Carton Size") + ")";
     tableRow.appendChild(productNameTable);
 
     // Pricing
