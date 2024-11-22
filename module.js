@@ -3,22 +3,21 @@ function isSKU(string) {
 }
 
 function getCartFromSessionStorage() {
-    let cart = new Map();
-    for (let i = 0; i < sessionStorage.length; i++) {
-        const productSKU = sessionStorage.key(i);
+    const cart = new Map();
+    Object.keys(sessionStorage).forEach(productSKU => {
         if (isSKU(productSKU)) {
             cart.set(productSKU, getSessionStorageMap(productSKU));
         }
-    }
+    });
     return cart;
 }
 
 function setSessionStorageMap(SKU, productMapData) {
-    sessionStorage.setItem(SKU, JSON.stringify(Array.from(productMapData.entries())));
+    sessionStorage.setItem(SKU, JSON.stringify([...productMapData.entries()]));
 }
 
 function getSessionStorageMap(SKU) {
     return new Map(JSON.parse(sessionStorage.getItem(SKU)));
 }
 
-export {isSKU, getCartFromSessionStorage, setSessionStorageMap, getSessionStorageMap};
+export { isSKU, getCartFromSessionStorage, setSessionStorageMap, getSessionStorageMap };
