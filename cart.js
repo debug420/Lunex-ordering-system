@@ -1,20 +1,8 @@
+import {getCartFromSessionStorage} from "./module.js";
+
 const backButton = document.getElementById("backButton");
 backButton.onclick = function() {
     window.location.href = "index.html";
-}
-
-function isSKU(string) {
-    return /^[0-9]{4}$/.test(string);
-}
-
-function getCartFromSessionStorage() {
-    let cart = new Map();
-    for (i = 0; i < sessionStorage.length; i++) {
-        if (isSKU(sessionStorage.key(i))) {
-            cart.set(sessionStorage.key(i), sessionStorage.getItem(sessionStorage.key(i)));
-        }
-    }
-    return cart;
 }
 
 function changeQuantity(SKU, byAmount) {

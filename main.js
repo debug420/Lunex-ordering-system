@@ -1,3 +1,5 @@
+import {getCartFromSessionStorage} from "./module.js";
+
 let tableInstance;
 const viewCartButton = document.getElementById("viewCartButton");
 viewCartButton.onclick = function() {
@@ -13,20 +15,6 @@ function makeCartButtonRemove(buttonObject) {
 function makeCartButtonAdd(buttonObject) {
     buttonObject.textContent = "Add";
     buttonObject.style.backgroundColor = "#4CAF50";
-}
-
-function isSKU(string) {
-    return /^[0-9]{4}$/.test(string);
-}
-
-function getCartFromSessionStorage() {
-    let cart = new Map();
-    for (i = 0; i < sessionStorage.length; i++) {
-        if (isSKU(sessionStorage.key(i))) {
-            cart.set(sessionStorage.key(i), sessionStorage.getItem(sessionStorage.key(i)));
-        }
-    }
-    return cart;
 }
 
 function updateViewCartButton() {
@@ -72,7 +60,7 @@ fetch("products.json")
 
         // Populate list in HTML
         const mainTable = document.getElementById("mainTableBody");
-        for (index in products) {
+        for (let index in products) {
 
             const tableRow = document.createElement("tr");
             mainTable.appendChild(tableRow);
