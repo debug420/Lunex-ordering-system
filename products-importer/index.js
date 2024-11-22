@@ -9,7 +9,8 @@ fs.readFile("ORIGINALDATA.json", function(err, data) {
         productMap.set("Product Name", index["product"].replace(/<span[^>]*>.*?<\/span>/gi, ''));
         productMap.set("Selling Price", parseFloat(index["min_price"] || index["max_price"]).toFixed(2));
         productMap.set("Brand", index["brand"] || "-");
-        productMap.set("variationID", index["id"]);
+        productMap.set("ID", index["id"]);
+        productMap.set("Carton Size", index["unit"]);
         newData.push(Object.fromEntries(productMap));
     });
 
