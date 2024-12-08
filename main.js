@@ -40,9 +40,12 @@ $resetCartButton.on("click", () => {
     updateViewCartButton();
 });
 
-fetch("products.json")
-    .then(response => response.json())
-    .then(products => {
+(async function loadData() {
+    try {
+
+        // Now fetch product details
+        const productResponse = await fetch("products.json");
+        const products = await productResponse.json();
         console.log("Data loaded...");
 
         const $mainTableBody = $("#mainTableBody");
@@ -97,5 +100,7 @@ fetch("products.json")
                 sLengthMenu: "_MENU_",
             },
         });
-    })
-    .catch(error => console.error("Error loading table:", error));
+    } catch (error) {
+        console.error("Error loading data:", error);
+    }
+})();

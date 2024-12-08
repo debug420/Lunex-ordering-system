@@ -118,3 +118,20 @@ $exportButton.on("click", () => {
         $downloadLink.remove();
     }
 });
+
+let productVariationPricingData = new Map();
+const priceResponse = await fetch("productsprice.json");
+const productPrices = await priceResponse.json();
+productPrices.forEach(product => {
+
+    let priceMap = new Map();
+    priceMap.set("BASE", product["Base Selling Price"]);
+    priceMap.set("Adelaide", product["Adelaide"]);
+    priceMap.set("Bamyan", product["Bamyan"]);
+    priceMap.set("BestWay 1", product["BestWay 1"]);
+    priceMap.set("K.i grocery", product["K.i grocery"]);
+    priceMap.set("Melbourne", product["Melbourne"]);
+    priceMap.set("Zesty Tasty", product["Zesty Tasty"]);
+
+    productVariationPricingData.set(product["sku"], priceMap);
+});
