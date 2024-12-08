@@ -99,6 +99,7 @@ $exportButton.on("click", () => {
 
     getCartFromSessionStorage().forEach((productData) => {
         const productQuantity = productData.get("Quantity");
+        const productVariationID = productData.get("ID")
         exportedString += `pos_product_row(${productVariationID}, null, null, ${productQuantity});\n`;
     });
 
