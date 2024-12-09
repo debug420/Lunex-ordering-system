@@ -29,11 +29,12 @@ getCartFromSessionStorage().forEach((productData, productSKU) => {
     const productName = productData.get("Product Name");
     const productQuantity = productData.get("Quantity");
     const productPrice = productData.get("Selling Price");
+    const productCartonSize = productData.get("Carton Size");
 
     const $tableRow = $("<tr>").appendTo($cartTable);
 
     // Product Name
-    const productNameText = `[${productSKU}] ${productName} (${productData.get("Carton Size")})`;
+    const productNameText = `[${productSKU}] ${productName} (${productCartonSize})`;
     $("<td>").text(productNameText).appendTo($tableRow);
 
     // Pricing
